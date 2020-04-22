@@ -13,7 +13,7 @@ public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
     }
 
     @Test
-    void testRemovingRandomPieceAfterNotEatingWithWhitePieces(){
+    public void testRemovingRandomPieceAfterNotEatingWithWhitePieces(){
         this.setGame(Color.WHITE,
             "        ",
             "        ",
@@ -39,7 +39,7 @@ public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
     }
 
     @Test
-    void testRemovingRandomPieceAfterNotEatingWithBlackPieces(){
+    public void testRemovingRandomPieceAfterNotEatingWithBlackPieces(){
         this.setGame(Color.WHITE,
             "        ",
             "        ",
