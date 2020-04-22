@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class EatingPieceAfterOpponentNotEatingPiece extends GameTest{
+public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
 
     private void assertMove(Coordinate... coordinates){
         assertNull(this.game.move(coordinates));
@@ -64,3 +64,4 @@ public class EatingPieceAfterOpponentNotEatingPiece extends GameTest{
         );
     }
 }
+
