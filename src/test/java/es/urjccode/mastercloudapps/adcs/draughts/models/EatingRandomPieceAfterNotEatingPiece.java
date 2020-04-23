@@ -12,8 +12,14 @@ public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
         assertEquals(this.game, this.expectedGame);
     }
 
+    private void assertMoveRandomRemoving(int expectedWhite, int expectedBlack, Coordinate... coordinates){
+        assertNull(this.game.move(coordinates));
+        assertEquals(expectedBlack, this.game.getNumberOfPieces(Color.BLACK));
+        assertEquals(expectedWhite, this.game.getNumberOfPieces(Color.WHITE));
+    }
+
     @Test
-    public void testRemovingRandomPieceAfterNotEatingWithWhitePieces(){
+    public void testRemovingPieceAfterNotEatingWithWhitePieces(){
         this.setGame(Color.WHITE,
             "        ",
             "        ",
@@ -39,7 +45,7 @@ public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
     }
 
     @Test
-    public void testRemovingRandomPieceAfterNotEatingWithBlackPieces(){
+    public void testRemovingPieceAfterNotEatingWithBlackPieces(){
         this.setGame(Color.BLACK,
             "        ",
             "        ",
@@ -113,6 +119,40 @@ public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
         this.assertMove(
             new Coordinate(3, 4),
             new Coordinate(5, 2)
+        );
+    }
+
+    @Test
+    public void testRemoveAnyRandomPieceAfterNotEatingWithWhitePieces(){
+        this.setGame(Color.WHITE,
+            "        ",
+            "        ",
+            " n n    ",
+            "        ",
+            "   n    ",
+            "  b b   ",
+            "     b  ",
+            "        ");
+        this.assertMoveRandomRemoving(2, 3,
+            new Coordinate(5, 2),
+            new Coordinate(4, 1)
+        );
+    }
+
+    @Test
+    public void testRemoveAnyRandomPieceAfterNotEatingWithBlackPieces(){
+        this.setGame(Color.BLACK,
+            "        ",
+            "        ",
+            "        ",
+            "  n n   ",
+            "   b    ",
+            "        ",
+            "        ",
+            "        ");
+        this.assertMoveRandomRemoving(1, 1,
+            new Coordinate(3, 4),
+            new Coordinate(5, 5)
         );
     }
 }
