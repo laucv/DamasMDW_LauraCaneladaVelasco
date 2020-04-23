@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
+public class EatingRandomPieceAfterNotEatingPieceTest extends GameTest{
 
     private void assertMove(Coordinate... coordinates){
         assertNull(this.game.move(coordinates));
@@ -152,7 +152,7 @@ public class EatingRandomPieceAfterNotEatingPiece extends GameTest{
             "        ");
         this.assertMoveRandomRemoving(1, 1,
             new Coordinate(3, 4),
-            new Coordinate(5, 5)
+            new Coordinate(4, 5)
         );
     }
 }

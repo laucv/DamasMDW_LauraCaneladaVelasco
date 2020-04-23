@@ -15,6 +15,6 @@ import org.junit.runners.Suite;
     IncorrectMovesDraughtGameTest.class,
     CorrectMovesDraughtGameTest.class,
     IsBlockedGameTest.class,
-    EatingRandomPieceAfterNotEatingPiece.class} )
+    EatingRandomPieceAfterNotEatingPieceTest.class} )
 public final class AllModelTest {
 }

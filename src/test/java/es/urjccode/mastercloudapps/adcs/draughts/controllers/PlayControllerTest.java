@@ -50,7 +50,7 @@ public class PlayControllerTest {
     public void testGivenPlayControllerWhenMoveWithoutMovementsThenIsBlocked() {
         Game game = new GameBuilder().rows(
             "        ",
-            "        ",
+            "  b b   ",
             "   n    ",
             "  b b   ",
             "     b  ",
