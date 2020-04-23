@@ -68,6 +68,52 @@ class Board {
         return this.getPiece(coordinate) == null;
     }
 
+    List<Coordinate> checkIfEatingPieceWasAvailable(Color turn) {
+        List<Coordinate> availablePiecesToJump = new ArrayList<Coordinate>();
+        for (int i = 0; i < Coordinate.getDimension(); i++)
+            for (int j = 0; j < Coordinate.getDimension(); j++)
+                if (this.pieces[i][j] != null)
+                    if (this.pieces[i][j].color.equals(turn)) {
+                        this.checkDiagonals(availablePiecesToJump, turn, new Coordinate(i, j));
+                    }
+        return availablePiecesToJump;
+    }
+
+    void checkDiagonals(List<Coordinate> availablePiecesToJump, Color color, Coordinate coordinate) {
+        final int row = coordinate.getRow();
+        final int column = coordinate.getColumn();
+        if (row != 7 && column != 7 && row != 6 && column != 6
+            && this.getPiece(new Coordinate(row + 1, column + 1)) != null
+            && this.getPiece(new Coordinate(row + 2, column + 2)) == null
+            && !this.getPiece(new Coordinate(row + 1, column + 1)).getColor().equals(color))
+            availablePiecesToJump.add(coordinate);
+        if (row != 0 && column != 7 && row != 1 && column != 6
+            && this.getPiece(new Coordinate(row - 1, column + 1)) != null
+            && this.getPiece(new Coordinate(row - 2, column + 2)) == null
+            && !this.getPiece(new Coordinate(row - 1, column + 1)).getColor().equals(color))
+            availablePiecesToJump.add(coordinate);
+        if (row != 7 && column != 0 && row != 6 && column != 1
+            && this.getPiece(new Coordinate(row + 1, column - 1)) != null
+            && this.getPiece(new Coordinate(row + 2, column - 2)) == null
+            && !this.getPiece(new Coordinate(row + 1, column - 1)).getColor().equals(color))
+            availablePiecesToJump.add(coordinate);
+        if (row != 0 && column != 0 && row != 1 && column != 1
+            && this.getPiece(new Coordinate(row - 1, column - 1)) != null
+            && this.getPiece(new Coordinate(row - 2, column - 2)) == null
+            && !this.getPiece(new Coordinate(row - 1, column - 1)).getColor().equals(color))
+            availablePiecesToJump.add(coordinate);
+    }
+
+    int getNumberOfPieces(Color color) {
+        int result = 0;
+        for (int i = 0; i < Coordinate.getDimension(); i++)
+            for (int j = 0; j < Coordinate.getDimension(); j++)
+                if (this.pieces[i][j] != null)
+                    if (this.pieces[i][j].color.equals(color))
+                        result++;
+        return result;
+    }
+
     @Override
     public String toString() {
         String string = "";
