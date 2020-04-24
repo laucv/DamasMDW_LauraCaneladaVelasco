@@ -80,29 +80,23 @@ class Board {
         final int row = coordinate.getRow();
         final int column = coordinate.getColumn();
         if ((color.equals(Color.WHITE) || (color.equals(Color.BLACK) && this.getPiece(coordinate).equals(Draught.class))) && row > 1) {
-            if (column < 6
-                && hasSameColor(new Coordinate(row - 1, column + 1), color)
-                && this.getPiece(new Coordinate(row - 2, column + 2)) == null)
+            if (column < 6 && jumpIsPossible(coordinate, Direction.SE))
                     availablePiecesToJump.add(coordinate);
-            if (column > 1
-                && hasSameColor(new Coordinate(row - 1, column - 1), color)
-                && this.getPiece(new Coordinate(row - 2, column - 2)) == null)
+            if (column > 1 && jumpIsPossible(coordinate, Direction.SW))
                     availablePiecesToJump.add(coordinate);
         }
         if ((color.equals(Color.BLACK) || (color.equals(Color.WHITE) && this.getPiece(coordinate).equals(Draught.class))) && row < 6) {
-            if (column > 1
-                && hasSameColor(new Coordinate(row + 1, column - 1), color)
-                && this.getPiece(new Coordinate(row + 2, column - 2)) == null)
+            if (column > 1 && jumpIsPossible(coordinate, Direction.NW))
                     availablePiecesToJump.add(coordinate);
-            if (column < 6
-                && hasSameColor(new Coordinate(row + 1, column + 1), color)
-                && this.getPiece(new Coordinate(row + 2, column + 2)) == null)
+            if (column < 6 && jumpIsPossible(coordinate, Direction.NE))
                     availablePiecesToJump.add(coordinate);
         }
     }
 
-    boolean hasSameColor(Coordinate coordinate, Color color) {
-        return this.getPiece(coordinate) != null && !this.getColor(coordinate).equals(color);
+    boolean jumpIsPossible(Coordinate coordinate, Direction direction) {
+        return this.getPiece(coordinate.getDiagonalCoordinate(direction, 1)) != null
+            && !this.getColor(coordinate.getDiagonalCoordinate(direction, 1)).equals(this.getColor(coordinate))
+            && this.getPiece(coordinate.getDiagonalCoordinate(direction, 2)) == null;
     }
 
     int getNumberOfPieces(Color color) {
