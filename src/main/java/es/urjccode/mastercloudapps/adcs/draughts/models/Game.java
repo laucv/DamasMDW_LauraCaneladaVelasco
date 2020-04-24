@@ -40,7 +40,7 @@ public class Game {
         do {
             error = this.isCorrectPairMove(pair, coordinates);
             if (error == null) {
-                availableJumps = this.board.checkIfEatingPieceWasAvailable(this.turn.getColor());
+                availableJumps = this.board.checkIfEatingPieceWasAvailable(this.getTurnColor(), this.getCoordinatesWithActualColor());
                 this.pairMove(removedCoordinates, pair, coordinates);
                 pair++;
             }

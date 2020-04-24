@@ -68,14 +68,11 @@ class Board {
         return this.getPiece(coordinate) == null;
     }
 
-    List<Coordinate> checkIfEatingPieceWasAvailable(Color turn) {
+    List<Coordinate> checkIfEatingPieceWasAvailable(Color color, List<Coordinate> coordinates) {
         List<Coordinate> availablePiecesToJump = new ArrayList<Coordinate>();
-        for (int i = 0; i < Coordinate.getDimension(); i++)
-            for (int j = 0; j < Coordinate.getDimension(); j++)
-                if (this.pieces[i][j] != null)
-                    if (this.pieces[i][j].color.equals(turn)) {
-                        this.checkDiagonals(availablePiecesToJump, turn, new Coordinate(i, j));
-                    }
+        for(Coordinate coordinate: coordinates){
+            this.checkDiagonals(availablePiecesToJump, color, coordinate);
+        }
         return availablePiecesToJump;
     }
 
