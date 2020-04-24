@@ -8,6 +8,10 @@ class Board {
 
     private Piece[][] pieces;
 
+    private final int MAXIMUM_LIMIT_TO_JUMP = Coordinate.getDimension() - 2;
+
+    private final int MINIMUM_LIMIT_TO_JUMP = 1;
+
     Board() {
         this.pieces = new Piece[Coordinate.getDimension()][Coordinate.getDimension()];
         for (int i = 0; i < Coordinate.getDimension(); i++)
@@ -77,18 +81,16 @@ class Board {
     }
 
     void checkDiagonals(List<Coordinate> availablePiecesToJump, Color color, Coordinate coordinate) {
-        final int row = coordinate.getRow();
-        final int column = coordinate.getColumn();
-        if ((color.equals(Color.WHITE) || (color.equals(Color.BLACK) && this.getPiece(coordinate).equals(Draught.class))) && row > 1) {
-            if (column < 6 && jumpIsPossible(coordinate, Direction.SE))
+        if ((color.equals(Color.WHITE) || (color.equals(Color.BLACK) && this.getPiece(coordinate).equals(Draught.class))) && coordinate.getRow() > MINIMUM_LIMIT_TO_JUMP) {
+            if (coordinate.getColumn() < MAXIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.SE))
                     availablePiecesToJump.add(coordinate);
-            if (column > 1 && jumpIsPossible(coordinate, Direction.SW))
+            if (coordinate.getColumn() > MINIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.SW))
                     availablePiecesToJump.add(coordinate);
         }
-        if ((color.equals(Color.BLACK) || (color.equals(Color.WHITE) && this.getPiece(coordinate).equals(Draught.class))) && row < 6) {
-            if (column > 1 && jumpIsPossible(coordinate, Direction.NW))
+        if ((color.equals(Color.BLACK) || (color.equals(Color.WHITE) && this.getPiece(coordinate).equals(Draught.class))) && coordinate.getRow() < MAXIMUM_LIMIT_TO_JUMP) {
+            if (coordinate.getColumn() > MINIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.NW))
                     availablePiecesToJump.add(coordinate);
-            if (column < 6 && jumpIsPossible(coordinate, Direction.NE))
+            if (coordinate.getColumn() < MAXIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.NE))
                     availablePiecesToJump.add(coordinate);
         }
     }
