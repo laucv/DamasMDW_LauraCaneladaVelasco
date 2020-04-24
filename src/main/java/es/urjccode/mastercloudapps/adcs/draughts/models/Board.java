@@ -72,12 +72,12 @@ class Board {
         return this.getPiece(coordinate) == null;
     }
 
-    List<Coordinate> getPiecesThatCanJump(Color color, List<Coordinate> coordinates) {
-        List<Coordinate> piecesThatCanJump = new ArrayList<Coordinate>();
+    List<Coordinate> getAvailablePiecesToJump(Color color, List<Coordinate> coordinates) {
+        List<Coordinate> availablePiecesToJump = new ArrayList<Coordinate>();
         for (Coordinate coordinate : coordinates) {
-            this.checkDiagonals(piecesThatCanJump, color, coordinate);
+            this.checkDiagonals(availablePiecesToJump, color, coordinate);
         }
-        return piecesThatCanJump;
+        return availablePiecesToJump;
     }
 
     void checkDiagonals(List<Coordinate> availablePiecesToJump, Color color, Coordinate coordinate) {

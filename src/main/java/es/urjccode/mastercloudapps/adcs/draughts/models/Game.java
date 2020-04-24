@@ -35,19 +35,19 @@ public class Game {
     public Error move(Coordinate... coordinates) {
         Error error = null;
         List<Coordinate> removedCoordinates = new ArrayList<Coordinate>();
-        List<Coordinate> availableJumps = new ArrayList<Coordinate>();
+        List<Coordinate> availablePiecesToJump = new ArrayList<Coordinate>();
         int pair = 0;
         do {
             error = this.isCorrectPairMove(pair, coordinates);
             if (error == null) {
-                availableJumps = this.board.getPiecesThatCanJump(this.getTurnColor(), this.getCoordinatesWithActualColor());
+                availablePiecesToJump = this.board.getAvailablePiecesToJump(this.getTurnColor(), this.getCoordinatesWithActualColor());
                 this.pairMove(removedCoordinates, pair, coordinates);
                 pair++;
             }
         } while (pair < coordinates.length - 1 && error == null);
         error = this.isCorrectGlobalMove(error, removedCoordinates, coordinates);
-        if (removedCoordinates.size() == 0 && availableJumps.size() != 0 && error == null) {
-            this.removeRandomPieceAfterNotEating(coordinates[0], coordinates[coordinates.length - 1], availableJumps.toArray(new Coordinate[availableJumps.size()]));
+        if (removedCoordinates.size() == 0 && availablePiecesToJump.size() != 0 && error == null) {
+            this.removeRandomPieceAfterNotEating(coordinates[0], coordinates[coordinates.length - 1], availablePiecesToJump);
         }
         if (error == null)
             this.turn.change();
@@ -56,12 +56,12 @@ public class Game {
         return error;
     }
 
-    private void removeRandomPieceAfterNotEating(Coordinate origin, Coordinate lastTarget, Coordinate... coordinates) {
-        int random = (int) Math.random() * coordinates.length;
-        if (coordinates[random].equals(origin))
+    private void removeRandomPieceAfterNotEating(Coordinate origin, Coordinate lastTarget, List<Coordinate> coordinates) {
+        final int random = (int) Math.random() * coordinates.size();
+        if (coordinates.get(random).equals(origin))
             this.board.remove(lastTarget);
         else
-            this.board.remove(coordinates[random]);
+            this.board.remove(coordinates.get(random));
     }
 
     private Error isCorrectPairMove(int pair, Coordinate... coordinates) {
