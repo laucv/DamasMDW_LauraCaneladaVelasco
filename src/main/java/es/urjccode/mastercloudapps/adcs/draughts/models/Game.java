@@ -46,12 +46,11 @@ public class Game {
             }
         } while (pair < coordinates.length - 1 && error == null);
         error = this.isCorrectGlobalMove(error, removedCoordinates, coordinates);
-        if (removedCoordinates.size() == 0 && availablePiecesToJump.size() != 0 && error == null) {
-            this.removeRandomPieceAfterNotEating(coordinates[0], coordinates[coordinates.length - 1], availablePiecesToJump);
-        }
-        if (error == null)
+        if (error == null) {
+            if (removedCoordinates.size() == 0 && availablePiecesToJump.size() != 0)
+                this.removeRandomPieceAfterNotEating(coordinates[0], coordinates[coordinates.length - 1], availablePiecesToJump);
             this.turn.change();
-        else
+        } else
             this.unMovesUntilPair(removedCoordinates, pair, coordinates);
         return error;
     }
