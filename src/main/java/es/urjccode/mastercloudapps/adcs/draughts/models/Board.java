@@ -80,25 +80,25 @@ class Board {
         final int row = coordinate.getRow();
         final int column = coordinate.getColumn();
         if (row != 7 && column != 7 && row != 6 && column != 6
-            && this.getPiece(new Coordinate(row + 1, column + 1)) != null
-            && this.getPiece(new Coordinate(row + 2, column + 2)) == null
-            && !this.getPiece(new Coordinate(row + 1, column + 1)).getColor().equals(color))
+            && hasSameColor(new Coordinate(row + 1, column + 1), color)
+            && this.getPiece(new Coordinate(row + 2, column + 2)) == null)
             availablePiecesToJump.add(coordinate);
         if (row != 0 && column != 7 && row != 1 && column != 6
-            && this.getPiece(new Coordinate(row - 1, column + 1)) != null
-            && this.getPiece(new Coordinate(row - 2, column + 2)) == null
-            && !this.getPiece(new Coordinate(row - 1, column + 1)).getColor().equals(color))
+            && hasSameColor(new Coordinate(row - 1, column + 1), color)
+            && this.getPiece(new Coordinate(row - 2, column + 2)) == null)
             availablePiecesToJump.add(coordinate);
         if (row != 7 && column != 0 && row != 6 && column != 1
-            && this.getPiece(new Coordinate(row + 1, column - 1)) != null
-            && this.getPiece(new Coordinate(row + 2, column - 2)) == null
-            && !this.getPiece(new Coordinate(row + 1, column - 1)).getColor().equals(color))
+            && hasSameColor(new Coordinate(row + 1, column - 1), color)
+            && this.getPiece(new Coordinate(row + 2, column - 2)) == null)
             availablePiecesToJump.add(coordinate);
         if (row != 0 && column != 0 && row != 1 && column != 1
-            && this.getPiece(new Coordinate(row - 1, column - 1)) != null
-            && this.getPiece(new Coordinate(row - 2, column - 2)) == null
-            && !this.getPiece(new Coordinate(row - 1, column - 1)).getColor().equals(color))
+            && hasSameColor(new Coordinate(row - 1, column - 1), color)
+            && this.getPiece(new Coordinate(row - 2, column - 2)) == null)
             availablePiecesToJump.add(coordinate);
+    }
+
+    boolean hasSameColor(Coordinate coordinate, Color color){
+        return this.getPiece(coordinate) != null && !this.getPiece(coordinate).getColor().equals(color);
     }
 
     int getNumberOfPieces(Color color) {
