@@ -102,7 +102,7 @@ class Board {
     }
 
     boolean hasSameColor(Coordinate coordinate, Color color) {
-        return this.getPiece(coordinate) != null && !this.getPiece(coordinate).getColor().equals(color);
+        return this.getPiece(coordinate) != null && !this.getColor(coordinate).equals(color);
     }
 
     int getNumberOfPieces(Color color) {
