@@ -68,7 +68,7 @@ class Board {
         return this.getPiece(coordinate) == null;
     }
 
-    List<Coordinate> checkIfEatingPieceWasAvailable(Color color, List<Coordinate> coordinates) {
+    List<Coordinate> getPiecesThatCanJump(Color color, List<Coordinate> coordinates) {
         List<Coordinate> piecesThatCanJump = new ArrayList<Coordinate>();
         for(Coordinate coordinate: coordinates){
             this.checkDiagonals(piecesThatCanJump, color, coordinate);
