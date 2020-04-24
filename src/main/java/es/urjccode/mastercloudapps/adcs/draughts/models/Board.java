@@ -70,7 +70,7 @@ class Board {
 
     List<Coordinate> getPiecesThatCanJump(Color color, List<Coordinate> coordinates) {
         List<Coordinate> piecesThatCanJump = new ArrayList<Coordinate>();
-        for(Coordinate coordinate: coordinates){
+        for (Coordinate coordinate : coordinates) {
             this.checkDiagonals(piecesThatCanJump, color, coordinate);
         }
         return piecesThatCanJump;
@@ -79,25 +79,29 @@ class Board {
     void checkDiagonals(List<Coordinate> availablePiecesToJump, Color color, Coordinate coordinate) {
         final int row = coordinate.getRow();
         final int column = coordinate.getColumn();
-        if (row != 7 && column != 7 && row != 6 && column != 6
-            && hasSameColor(new Coordinate(row + 1, column + 1), color)
-            && this.getPiece(new Coordinate(row + 2, column + 2)) == null)
-            availablePiecesToJump.add(coordinate);
-        if (row != 0 && column != 7 && row != 1 && column != 6
-            && hasSameColor(new Coordinate(row - 1, column + 1), color)
-            && this.getPiece(new Coordinate(row - 2, column + 2)) == null)
-            availablePiecesToJump.add(coordinate);
-        if (row != 7 && column != 0 && row != 6 && column != 1
-            && hasSameColor(new Coordinate(row + 1, column - 1), color)
-            && this.getPiece(new Coordinate(row + 2, column - 2)) == null)
-            availablePiecesToJump.add(coordinate);
-        if (row != 0 && column != 0 && row != 1 && column != 1
-            && hasSameColor(new Coordinate(row - 1, column - 1), color)
-            && this.getPiece(new Coordinate(row - 2, column - 2)) == null)
-            availablePiecesToJump.add(coordinate);
+        if (color.equals(Color.WHITE) || (color.equals(Color.BLACK) && this.getPiece(coordinate).equals(Draught.class))) {
+            if (row != 0 && column != 7 && row != 1 && column != 6
+                && hasSameColor(new Coordinate(row - 1, column + 1), color)
+                && this.getPiece(new Coordinate(row - 2, column + 2)) == null)
+                    availablePiecesToJump.add(coordinate);
+            if (row != 0 && column != 0 && row != 1 && column != 1
+                && hasSameColor(new Coordinate(row - 1, column - 1), color)
+                && this.getPiece(new Coordinate(row - 2, column - 2)) == null)
+                    availablePiecesToJump.add(coordinate);
+        }
+        if (color.equals(Color.BLACK) || (color.equals(Color.WHITE) && this.getPiece(coordinate).equals(Draught.class))) {
+            if (row != 7 && column != 0 && row != 6 && column != 1
+                && hasSameColor(new Coordinate(row + 1, column - 1), color)
+                && this.getPiece(new Coordinate(row + 2, column - 2)) == null)
+                    availablePiecesToJump.add(coordinate);
+            if (row != 7 && column != 7 && row != 6 && column != 6
+                && hasSameColor(new Coordinate(row + 1, column + 1), color)
+                && this.getPiece(new Coordinate(row + 2, column + 2)) == null)
+                    availablePiecesToJump.add(coordinate);
+        }
     }
 
-    boolean hasSameColor(Coordinate coordinate, Color color){
+    boolean hasSameColor(Coordinate coordinate, Color color) {
         return this.getPiece(coordinate) != null && !this.getPiece(coordinate).getColor().equals(color);
     }
 
