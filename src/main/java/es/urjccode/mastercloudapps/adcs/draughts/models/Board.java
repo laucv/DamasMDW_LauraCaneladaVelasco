@@ -81,13 +81,13 @@ class Board {
     }
 
     void checkDiagonals(List<Coordinate> availablePiecesToJump, Color color, Coordinate coordinate) {
-        if ((color.equals(Color.WHITE) || (color.equals(Color.BLACK) && this.getPiece(coordinate).equals(Draught.class))) && coordinate.getRow() > MINIMUM_LIMIT_TO_JUMP) {
+        if (color.equals(Color.WHITE) && coordinate.getRow() > MINIMUM_LIMIT_TO_JUMP) {
             if (coordinate.getColumn() < MAXIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.SE))
                     availablePiecesToJump.add(coordinate);
             if (coordinate.getColumn() > MINIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.SW))
                     availablePiecesToJump.add(coordinate);
         }
-        if ((color.equals(Color.BLACK) || (color.equals(Color.WHITE) && this.getPiece(coordinate).equals(Draught.class))) && coordinate.getRow() < MAXIMUM_LIMIT_TO_JUMP) {
+        if (color.equals(Color.BLACK) && coordinate.getRow() < MAXIMUM_LIMIT_TO_JUMP) {
             if (coordinate.getColumn() > MINIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.NW))
                     availablePiecesToJump.add(coordinate);
             if (coordinate.getColumn() < MAXIMUM_LIMIT_TO_JUMP && jumpIsPossible(coordinate, Direction.NE))
